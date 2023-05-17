@@ -16,28 +16,27 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun startArrows() {
         val calendar = Calendar.getInstance()
-        compositeDisposable.add(
-            Observable.interval(1, TimeUnit.SECONDS)
-                .map {
-                    calendar.timeInMillis = System.currentTimeMillis()
-                    val hour = calendar.get(Calendar.HOUR_OF_DAY)
-                    val minute = calendar.get(Calendar.MINUTE)
-                    val second = calendar.get(Calendar.SECOND)
-                    ClockAngel(hour, minute, second)
-                }
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe {
-                    calendar.timeInMillis = System.currentTimeMillis()
-                    val hour = calendar.get(Calendar.HOUR_OF_DAY)
-                    val minute = calendar.get(Calendar.MINUTE)
-                    val second = calendar.get(Calendar.SECOND)
-                    clockAngelLD.value = ClockAngel(hour, minute, second)
-                }
-                .subscribe {
-                    clockAngelLD.value = it
-                }
-        )
+        val disposable = Observable.interval(1, TimeUnit.SECONDS)
+            .map {
+                calendar.timeInMillis = System.currentTimeMillis()
+                val hour = calendar.get(Calendar.HOUR_OF_DAY)
+                val minute = calendar.get(Calendar.MINUTE)
+                val second = calendar.get(Calendar.SECOND)
+                ClockAngel(hour, minute, second)
+            }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe {
+                calendar.timeInMillis = System.currentTimeMillis()
+                val hour = calendar.get(Calendar.HOUR_OF_DAY)
+                val minute = calendar.get(Calendar.MINUTE)
+                val second = calendar.get(Calendar.SECOND)
+                clockAngelLD.value = ClockAngel(hour, minute, second)
+            }
+            .subscribe {
+                clockAngelLD.value = it
+            }
+        compositeDisposable.add(disposable)
     }
 
     override fun onCleared() {

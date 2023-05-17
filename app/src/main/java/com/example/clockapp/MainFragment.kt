@@ -31,8 +31,8 @@ class MainFragment : Fragment() {
                 clock.timeSecond = seconds
             }
             viewModel.startArrows()
-            clock.weather = Weather.Sunny(22)
-            clock.heartBeat = 86
+            clock.weather = Weather.Sunny(24)
+            clock.heartBeat = 93
         }
     }
 }

@@ -99,18 +99,22 @@ class ClockView @JvmOverloads constructor(
                     AppCompatResources.getDrawable(context, R.drawable.ic_windy)!!
                         .toBitmap()
                 }
+
                 is Weather.Rain -> {
                     AppCompatResources.getDrawable(context, R.drawable.ic_rain)!!
                         .toBitmap()
                 }
-                is Weather.Snow -> {
+
+                is Weather.Snowy -> {
                     AppCompatResources.getDrawable(context, R.drawable.ic_snow)!!
                         .toBitmap()
                 }
+
                 is Weather.Sunny -> {
                     AppCompatResources.getDrawable(context, R.drawable.ic_sunny)!!
                         .toBitmap()
                 }
+
                 is Weather.Cloud -> {
                     AppCompatResources.getDrawable(context, R.drawable.ic_cloud)!!
                         .toBitmap()
@@ -208,28 +212,36 @@ class ClockView @JvmOverloads constructor(
     private fun showDegree(canvas: Canvas?) {
         val temp = "${weather.temperature}°"
         paintInfo.getTextBounds(temp, 0, temp.length, textRect)
-        canvas?.drawText(temp,
+        canvas?.drawText(
+            temp,
             cX - textRect.width() / 2,
             cY - innerRadius / 2 + 16f.px,
-            paintInfo)
+            paintInfo
+        )
         val bitmapWidth = weatherBitmap!!.width / 2
-        canvas?.drawBitmap(weatherBitmap!!,
+        canvas?.drawBitmap(
+            weatherBitmap!!,
             cX - bitmapWidth,
             cY - innerRadius / 2 - textRect.height() * 2,
-            null)
+            null
+        )
     }
 
     private fun showHeartbeat(canvas: Canvas?) {
         paintInfo.getTextBounds(heartBeat.toString(), 0, heartBeat.toString().length, textRect)
-        canvas?.drawText(heartBeat.toString(),
+        canvas?.drawText(
+            heartBeat.toString(),
             cX - textRect.width() / 2,
             cY + innerRadius / 2 + 16f.px,
-            paintInfo)
+            paintInfo
+        )
         val bitmapWidth = heartBeatBitmap.width / 2
-        canvas?.drawBitmap(heartBeatBitmap,
+        canvas?.drawBitmap(
+            heartBeatBitmap,
             cX - bitmapWidth,
             cY + innerRadius / 2 - textRect.height() * 2,
-            null)
+            null
+        )
     }
 
     private fun drawHourArrow(canvas: Canvas?) {
